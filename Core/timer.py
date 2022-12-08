@@ -14,7 +14,7 @@ class Timer(object):
         # buy_time = 2020-12-22 09:59:59.500
         buy_time_everyday = buyTime
         localtime = time.localtime(time.time())
-        #self.buy_time = datetime.strptime(
+        # self.buy_time = datetime.strptime(
         #    localtime.tm_year.__str__() + '-' + localtime.tm_mon.__str__() + '-' + localtime.tm_mday.__str__()
         #    + ' ' + buy_time_everyday,
         #    "%Y-%m-%d %H:%M:%S.%f")
@@ -30,7 +30,10 @@ class Timer(object):
         :return:
         """
         url = 'https://api.m.jd.com/client.action?functionId=queryMaterialProducts&client=wh5'
-        ret = requests.get(url).text
+        Headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36"
+        }
+        ret = requests.get(url=url, headers=Headers).text
         js = json.loads(ret)
         return int(js["currentTime2"])
         # return int(round(time.time() * 1000))
@@ -61,4 +64,3 @@ class Timer(object):
                 break
             else:
                 time.sleep(self.sleep_interval)
-
